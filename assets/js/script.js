@@ -8,10 +8,10 @@ var data = null;
 
 d3.json('/data.json', function(d) {
     data = d;
-    bindData();
+    drawData();
 });
 
-function bindData() {
+function drawData() {
     s.selectAll('circle')
         .data(data)
         .enter()
@@ -20,7 +20,15 @@ function bindData() {
             'r':Math.floor((Math.random() * 50) + 1),
             'cx':function(d) {return d.x;},
             'cy':function(d) {return d.y;}})
-        .style('fill', 'teal');
+        .style('fill', 'teal')
+        /*.append('polygon')
+            .attr('points', '0,0 0,10, 5,5')
+            .attr('fill', 'black');   */
+}
+
+function drawSpikes() {
+    s.selectAll('circle');
+        //.data
 }
 
 

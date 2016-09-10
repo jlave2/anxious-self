@@ -1,4 +1,24 @@
 [
-    {"x":150, "y":250, "date":"8/21/2016", "day":"Sunday"},
-    {"x":250, "y":250, "date":"8/22/2016", "day":"Monday"}
+    {"x":150, "y":250, "date":"8/21/2016", "day":"Sunday", 
+        "events":[
+            {"time_float":23.000, "time_str":"11:00 PM", "type":"future", "rating":4, "detail":"Anxious about school starting"}
+        ]
+    },
+    {"x":250, "y":250, "date":"8/22/2016", "day":"Monday", 
+        "events":[
+            {"time_float":13.333, "time_str":"1:20 PM", "type":"face", "rating":5,"detail":"Meeting with professor I don't know"},
+            {"time_float":13.583, "time_str":"1:35 PM", "type":"face", "rating":3,"detail":"Ask to make copies in unfamiliar department"},
+            {"time_float":13.917, "time_str":"1:55 PM", "type":"lecture", "rating":7,"detail":"Waiting for first class to begin"},
+            {"time_float":14.500, "time_str":"2:30 PM", "type":"lecture", "rating":8,"detail":"iClicker question (I don't have an iClicker)"},
+            {"time_float":16.750, "time_str":"4:45 PM", "type":"crowd", "rating":9,"detail":"Called out in class"}
+        ]
+    },
+    {"x":250, "y":250, "date":"8/23/2016", "day":"Tuesday", 
+        "events":[
+            {"time_float":12.417, "time_str":"12:25 PM", "type":"lecture", "rating":7, "detail":"Waiting for class to begin"},
+            {"time_float":14.500, "time_str":"2:30 PM", "type":"phone", "rating":8,"detail":"Call from Amazon driver"},
+            {"time_float":15.417, "time_str":"3:25 PM", "type":"lecture", "rating":7,"detail":"Waiting for class to begin"},
+            {"time_float":17.500, "time_str":"5:30 PM", "type":"face", "rating":8,"detail":"Unexpected knock on apartment door"},
+        ]
+    }
 ]
