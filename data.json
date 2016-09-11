@@ -1,24 +1,116 @@
 [
-    {"x":150, "y":250, "date":"8/21/2016", "day":"Sunday", 
+    {"x":1, "y":1, "date":"8/21", "day":"Sunday", 
         "events":[
             {"time_float":23.000, "time_str":"11:00 PM", "type":"future", "rating":4, "detail":"Anxious about school starting"}
         ]
     },
-    {"x":250, "y":250, "date":"8/22/2016", "day":"Monday", 
+    {"x":2, "y":1, "date":"8/22", "day":"Monday", 
         "events":[
-            {"time_float":13.333, "time_str":"1:20 PM", "type":"face", "rating":5,"detail":"Meeting with professor I don't know"},
-            {"time_float":13.583, "time_str":"1:35 PM", "type":"face", "rating":3,"detail":"Ask to make copies in unfamiliar department"},
-            {"time_float":13.917, "time_str":"1:55 PM", "type":"lecture", "rating":7,"detail":"Waiting for first class to begin"},
-            {"time_float":14.500, "time_str":"2:30 PM", "type":"lecture", "rating":8,"detail":"iClicker question (I don't have an iClicker)"},
-            {"time_float":16.750, "time_str":"4:45 PM", "type":"crowd", "rating":9,"detail":"Called out in class"}
+            {"time_float":13.333, "time_str":"1:20 PM", "type":"face", "rating":5, "detail":"Meeting with professor I don't know"},
+            {"time_float":13.583, "time_str":"1:35 PM", "type":"face", "rating":3, "detail":"Ask to make copies in unfamiliar department"},
+            {"time_float":13.917, "time_str":"1:55 PM", "type":"class", "rating":7, "detail":"Waiting for first class to begin"},
+            {"time_float":14.500, "time_str":"2:30 PM", "type":"class", "rating":8, "detail":"iClicker question (I don't have an iClicker)"},
+            {"time_float":16.750, "time_str":"4:45 PM", "type":"crowd", "rating":9, "detail":"Called out in class"}
         ]
     },
-    {"x":250, "y":250, "date":"8/23/2016", "day":"Tuesday", 
+    {"x":3, "y":1, "date":"8/23", "day":"Tuesday", 
         "events":[
-            {"time_float":12.417, "time_str":"12:25 PM", "type":"lecture", "rating":7, "detail":"Waiting for class to begin"},
+            {"time_float":12.417, "time_str":"12:25 PM", "type":"class", "rating":7, "detail":"Waiting for class to begin"},
             {"time_float":14.500, "time_str":"2:30 PM", "type":"phone", "rating":8,"detail":"Call from Amazon driver"},
-            {"time_float":15.417, "time_str":"3:25 PM", "type":"lecture", "rating":7,"detail":"Waiting for class to begin"},
-            {"time_float":17.500, "time_str":"5:30 PM", "type":"face", "rating":8,"detail":"Unexpected knock on apartment door"},
+            {"time_float":15.417, "time_str":"3:25 PM", "type":"class", "rating":7,"detail":"Waiting for class to begin"},
+            {"time_float":17.500, "time_str":"5:30 PM", "type":"face", "rating":8,"detail":"Unexpected knock on apartment door"}
+        ]
+    },
+    {"x":4, "y":1, "date":"8/24", "day":"Wednesday", 
+        "events":[
+            {"time_float":10.000, "time_str":"10:00 AM", "type":"work", "rating":5, "detail":"Starting IT job"},
+            {"time_float":12.750, "time_str":"12:45 PM", "type":"face", "rating":6, "detail":"Conversation with client"},
+            {"time_float":13.917, "time_str":"1:55 PM", "type":"class", "rating":4, "detail":"Waiting for class to begin"}
+        ]
+    },
+    {"x":5, "y":1, "date":"8/25", "day":"Thursday", 
+        "events":[
+            {"time_float":11.833, "time_str":"11:50 AM", "type":"phone", "rating":8, "detail":"Unknown number"},
+            {"time_float":12.417, "time_str":"12:25 PM", "type":"class", "rating":3, "detail":"Waiting for class to begin"},
+            {"time_float":15.417, "time_str":"3:25 PM", "type":"class", "rating":5, "detail":"Waiting for class to begin"}
+        ]
+    },
+    {"x":6, "y":1, "date":"8/26", "day":"Friday", 
+        "events":[
+            {"time_float":10.500, "time_str":"10:30 AM", "type":"face", "rating":3, "detail":"Conversation with coworker"},
+            {"time_float":13.917, "time_str":"1:55 PM", "type":"class", "rating":2, "detail":"Waiting for class to begin"},
+            {"time_float":17.500, "time_str":"5:30 PM", "type":"unexpected", "rating":8, "detail":"Late for own party"},
+            {"time_float":18.500, "time_str":"6:30 PM", "type":"unexpected", "rating":7, "detail":"Friend messed up pizza order"},
+            {"time_float":22.667, "time_str":"10:40 PM", "type":"conflict", "rating":8, "detail":"Nervous about annoying neighbors with noise"},
+            {"time_float":23.000, "time_str":"11:00 PM", "type":"unexpected", "rating":7, "detail":"Friend spills beer on furniture"}
+        ]
+    },
+    {"x":7, "y":1, "date":"8/27", "day":"Saturday", 
+        "events":[
+            {"time_float":12.500, "time_str":"12:30 PM", "type":"face", "rating":5, "detail":"Amazon delivery"},
+            {"time_float":15.500, "time_str":"3:30 PM", "type":"danger", "rating":10, "detail":"Nearly hit another car while driving"}
+        ]
+    },
+    {"x":1, "y":2, "date":"8/28", "day":"Sunday", 
+        "events":[
+            {"time_float":23.500, "time_str":"11:30 PM", "type":"future", "rating":5, "detail":"Wondering whether I've made the right decisions in life"}
+        ]
+    },
+    {"x":2, "y":2, "date":"8/29", "day":"Monday", 
+        "events":[
+            {"time_float":9.000, "time_str":"9:00 AM", "type":"assignment", "rating":2, "detail":"Helping girlfriend finish presentation on time"},
+            {"time_float":13.333, "time_str":"1:20 PM", "type":"phone", "rating":7, "detail":"Unknown number"}            
+        ]
+    },
+    {"x":3, "y":2, "date":"8/30", "day":"Tuesday", 
+        "events":[
+            {"time_float":10.000, "time_str":"10:00 AM", "type":"stock", "rating":3, "detail":"Whether or not to hold stock"},
+            {"time_float":15.417, "time_str":"3:25 PM", "type":"class", "rating":8, "detail":"Waiting for class to begin"},    
+            {"time_float":18.500, "time_str":"6:30 PM", "type":"parking", "rating":4, "detail":"Difficulty finding parking spot"}           
+        ]
+    },
+    {"x":4, "y":2, "date":"8/31", "day":"Wednesday", 
+        "events":[
+            {"time_float":9.500, "time_str":"9:30 AM", "type":"stock", "rating":9, "detail":"Lose profit on stock crash"},
+            {"time_float":12.500, "time_str":"12:30 PM", "type":"work", "rating":7, "detail":"Network issue I don't know how to fix"},    
+            {"time_float":13.833, "time_str":"1:50 PM", "type":"face", "rating":2, "detail":"Conversation with coworker"}           
+        ]
+    },
+    {"x":5, "y":2, "date":"9/1", "day":"Thursday", 
+        "events":[
+            {"time_float":9.917, "time_str":"9:55 AM", "type":"parking", "rating":8, "detail":"Can't find parking near school. Going to be late"},
+            {"time_float":14.167, "time_str":"2:10 PM", "type":"crowd", "rating":10, "detail":"Raise hand in class"},    
+            {"time_float":15.417, "time_str":"3:25 PM", "type":"class", "rating":8, "detail":"Waiting for class to begin"},
+            {"time_float":15.667, "time_str":"3:40 PM", "type":"face", "rating":2, "detail":"Work with new person in class"},        
+            {"time_float":19.000, "time_str":"7:00 PM", "type":"parking", "rating":5, "detail":"Reduced parking due to street closure"}                
+        ]
+    },
+    {"x":6, "y":2, "date":"9/2", "day":"Friday", 
+        "events":[
+            {"time_float":9.750, "time_str":"9:45 AM", "type":"unexpected", "rating":8, "detail":"Forget keys. Have to miss bus"},
+            {"time_float":10.000, "time_str":"10:00 AM", "type":"conflict", "rating":9, "detail":"Person cuts in line at library"},    
+            {"time_float":10.500, "time_str":"10:30 AM", "type":"work", "rating":6, "detail":"Cannot set up wireless printing for client"},
+            {"time_float":13.917, "time_str":"1:55 PM", "type":"class", "rating":7, "detail":"Returning after missing two classes"},        
+            {"time_float":16.000, "time_str":"4:00 PM", "type":"conflict", "rating":8, "detail":"Almost hit by cyclist blowing light"}                
+        ]
+    },
+    {"x":7, "y":2, "date":"9/3", "day":"Saturday", 
+        "events":[
+            {"time_float":10.000, "time_str":"10:00 AM", "type":"face", "rating":6, "detail":"Meet girlfriend's friend"},    
+            {"time_float":18.000, "time_str":"6:00 PM", "type":"assignment", "rating":7, "detail":"Not doing the things I need to get done"}
+        ]
+    },
+    {"x":1, "y":3, "date":"9/4", "day":"Sunday", 
+        "events":[
+            {"time_float":11.000, "time_str":"11:00 AM", "type":"assignment", "rating":2, "detail":"Have to begin grading"},    
+            {"time_float":16.000, "time_str":"4:00 PM", "type":"unexpected", "rating":6, "detail":"Have to open wine bottle without a corkscrew"}
+        ]
+    },
+    {"x":2, "y":3, "date":"9/5", "day":"Monday", 
+        "events":[
+            {"time_float":11.833, "time_str":"11:50 AM", "type":"assignment", "rating":4, "detail":"Have to start assignment"},
+            {"time_float":14.000, "time_str":"2:00 PM", "type":"assignment", "rating":7, "detail":"Time is running out"},                    
+            {"time_float":15.000, "time_str":"3:00 PM", "type":"future", "rating":8, "detail":"Wondering whether I've made the right decisions in life"}
         ]
     }
 ]
