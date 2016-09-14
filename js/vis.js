@@ -8,19 +8,21 @@ const SPIKE_SCALE = 200 / DEV_WIDTH * USER_WIDTH;
 const SPIKE_ANGLE = 13;
 const PI = Math.PI;
 
+$('#sel-range').slider({});
+
 let colorList = {
-    'danger':'#FF6961',
-    'conflict':'#FFB347', 
-    'crowd':'#FDFD96', 
-    'phone':'#77DD77', 
-    'unexpected':'#AEC6CF',
-    'future':'#779ECB',
-    'work':'#966FD6',
-    'stock':'#',
-    'parking':'#',
-    'class':'#',
-    'assignment':'#',
-    'face':'#'
+    'danger':'#000000',
+    'conflict':'#FFFF00', 
+    'crowd':'#1CE6FF', 
+    'phone':'#FF34FF', 
+    'unexpected':'#FF4A46',
+    'future':'#008941',
+    'work':'#006FA6',
+    'stock':'#A30059',
+    'parking':'#FFDBE5',
+    'class':'#BA0900',
+    'assignment':'#0000A6',
+    'face':'#63FFAC'
 }
 
 let s = d3.select('svg');
@@ -35,7 +37,8 @@ d3.json('/data.json', function(err, d) {
         console.log(err);
     } else {
         data = d;
-        drawCircles();
+        drawText();
+        //drawCircles();
     }
 });
 
@@ -110,19 +113,29 @@ function drawSpikes() {
                     return colorList[d.type] != '#' ? colorList[d.type] : 'white'
                 })
                 .on('mouseover', function() {
-                    var c = s.selectAll('circle')._groups[0][this.__data__.day];
-                    $('#event-time').text(c.__data__.day_of_week + ', ' + this.__data__.time_str);
-                    $('#event-detail').text(this.__data__.detail);
-                    $('#event-time').fadeTo(10, 1);
-                    $('#event-detail').fadeTo(10, 1);
+                    // Only fade in new text once the old has faded out
+                    if ($('#event-time').css('opacity') == '0') {
+                        var c = s.selectAll('circle')._groups[0][this.__data__.day];
+                        $('#event-time').text(c.__data__.day_of_week + ', ' + this.__data__.time_str);
+                        $('#event-detail').text(this.__data__.detail);
+                        $('#event-time').fadeTo(200, 1);
+                        $('#event-detail').fadeTo(200, 1);
+                    }
                 })
                 .on('mouseout', function() {
-                   $('#event-time').fadeTo(10, 0);                    
-                   $('#event-detail').fadeTo(10, 0);                    
+                    // Fade out text when leaving a spike
+                    $('#event-time').fadeTo(100, 0);                    
+                    $('#event-detail').fadeTo(100, 0);                    
                 });
         });
-
-    $('#event-detail').delay(500).fadeTo(200, 1);
+    
+    // Once spikes are drawn, fade out the intro...
+    $('#event-time').fadeTo(200, 0);
+    $('#event-detail').fadeTo(200, 0, function() {
+        $(this).text('Scroll over a spike to learn more.');
+        $(this).delay(1000).fadeTo(200, 1)
+    })
+       
 }
 
 /*function drawSpikes() {
@@ -185,4 +198,34 @@ function transitionCircles() {
         });
 
         setTimeout(drawSpikes, 1700);
+}
+
+function drawText() {
+    // Draw intro text
+    $('#event-time').delay(1000).fadeTo(200, 1, function() {
+        $('#event-detail').delay(1000 ).fadeTo(200, 1, function() {
+            setTimeout(drawCircles, 1000);
+        });
+    }); 
+}
+
+function filterType(type) {
+    s.selectAll('polygon')
+        .each(function(d, i) {
+            if (d.type != type) {
+                this.remove();
+            }
+        });
+}
+
+function reset() {
+    s.selectAll('polygon')
+        .each(function(d, i) {
+            this.remove();
+        });
+    drawSpikes();
+}
+
+function drawVis() {
+    drawCircles();
 }

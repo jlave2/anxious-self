@@ -7,10 +7,10 @@
     {"x":2, "y":1, "date":"8/22", "day_of_week":"Monday", 
         "events":[
             {"day":1, "time_float":13.333, "time_str":"1:20 PM", "type":"face", "rating":5, "detail":"Meeting with professor I don't know"},
-            {"day":1, "time_float":13.583, "time_str":"1:35 PM", "type":"face", "rating":3, "detail":"Ask to make copies in unfamiliar department"},
+            {"day":1, "time_float":13.583, "time_str":"1:35 PM", "type":"face", "rating":3, "detail":"Have to ask to make copies in an unfamiliar department"},
             {"day":1, "time_float":13.917, "time_str":"1:55 PM", "type":"class", "rating":7, "detail":"Waiting for first class to begin"},
             {"day":1, "time_float":14.500, "time_str":"2:30 PM", "type":"class", "rating":8, "detail":"iClicker question (I don't have an iClicker)"},
-            {"day":1, "time_float":16.750, "time_str":"4:45 PM", "type":"crowd", "rating":9, "detail":"Called out in class"}
+            {"day":1, "time_float":16.750, "time_str":"4:45 PM", "type":"crowd", "rating":9, "detail":"Called out in class — for being too quiet!"}
         ]
     },
     {"x":3, "y":1, "date":"8/23", "day_of_week":"Tuesday", 
