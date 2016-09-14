@@ -2,25 +2,27 @@ const USER_WIDTH = $(window).width();
 const DEV_WIDTH = 1670;
 const INIT_RADIUS_SCALE = 5 / DEV_WIDTH * USER_WIDTH;
 const RADIUS_SCALE = 30 / DEV_WIDTH * USER_WIDTH;
-const SEPARATION_SCALE = 250 / DEV_WIDTH * USER_WIDTH;
-const OFFSET_SCALE = 25 / DEV_WIDTH * USER_WIDTH;
-const SPIKE_SCALE = 150 / DEV_WIDTH * USER_WIDTH;
-const SPIKE_ANGLE = 10;
+const SEPARATION_SCALE = 300 / DEV_WIDTH * USER_WIDTH;
+//const OFFSET_SCALE = 25 / DEV_WIDTH * USER_WIDTH;
+const SPIKE_SCALE = 200 / DEV_WIDTH * USER_WIDTH;
+const SPIKE_ANGLE = 13;
 const PI = Math.PI;
 
+$('#sel-range').slider({});
+
 let colorList = {
-    'danger':'#800000',
-    'crowd':'#FF0000', 
-    'conflict':'#808000', 
-    'phone':'#FFFF00', 
-    'unexpected':'#008000',
-    'future':'#00FF00',
-    'work':'#008080',
-    'stock':'#00FFFF',
-    'parking':'#000080',
-    'class':'#0000FF',
-    'assignment':'#800080',
-    'face':'#FF00FF'
+    'danger':'#000000',
+    'conflict':'#FFFF00', 
+    'crowd':'#1CE6FF', 
+    'phone':'#FF34FF', 
+    'unexpected':'#FF4A46',
+    'future':'#008941',
+    'work':'#006FA6',
+    'stock':'#A30059',
+    'parking':'#FFDBE5',
+    'class':'#BA0900',
+    'assignment':'#0000A6',
+    'face':'#63FFAC'
 }
 
 let s = d3.select('svg');
@@ -35,7 +37,8 @@ d3.json('/data.json', function(err, d) {
         console.log(err);
     } else {
         data = d;
-        drawCircles();
+        drawText();
+        //drawCircles();
     }
 });
 
@@ -44,8 +47,8 @@ function drawCircles() {
         .data(data)
         .enter()
         .append('circle')
-        .style('fill', 'teal')
-        .attr('stroke', 'black') 
+        .style('fill', '#33A0A0')
+        .attr('stroke', '#000') 
         .attr('r', INIT_RADIUS_SCALE)
         .attr('cx', function(d) {
             return SEPARATION_SCALE * d.x;// + OFFSET_SCALE * (Math.random() - 0.5)
@@ -57,6 +60,7 @@ function drawCircles() {
         transitionCircles();
 }
 
+// Original -- works, but not very clean
 /*function drawSpikes() {
     var circleList = s.selectAll('circle')._groups[0];
     for (var circle = 0; circle < circleList.length; circle++) {
@@ -106,19 +110,64 @@ function drawSpikes() {
                 })
                 .attr('stroke', 'black')
                 .attr('fill', function(d) {
-                    return colorList[d.type] != '' ? colorList[d.type] : 'white'
+                    return colorList[d.type] != '#' ? colorList[d.type] : 'white'
                 })
                 .on('mouseover', function() {
-                   $('#test-field').text(this.__data__.detail);
-                   $('#test-field').css('visibility', 'visible');
+                    // Only fade in new text once the old has faded out
+                    if ($('#event-time').css('opacity') == '0') {
+                        var c = s.selectAll('circle')._groups[0][this.__data__.day];
+                        $('#event-time').text(c.__data__.day_of_week + ', ' + this.__data__.time_str);
+                        $('#event-detail').text(this.__data__.detail);
+                        $('#event-time').fadeTo(200, 1);
+                        $('#event-detail').fadeTo(200, 1);
+                    }
                 })
                 .on('mouseout', function() {
-                   $('#test-field').css('visibility', 'hidden');                    
+                    // Fade out text when leaving a spike
+                    $('#event-time').fadeTo(100, 0);                    
+                    $('#event-detail').fadeTo(100, 0);                    
                 });
         });
-
-    $('#test-field').css('visibility', 'visible');
+    
+    // Once spikes are drawn, fade out the intro...
+    $('#event-time').fadeTo(200, 0);
+    $('#event-detail').fadeTo(200, 0, function() {
+        $(this).text('Scroll over a spike to learn more.');
+        $(this).delay(1000).fadeTo(200, 1)
+    })
+       
 }
+
+/*function drawSpikes() {
+    s.selectAll('circle')
+        .each(function(d) {
+            // record its x and y position...
+            var cx = this.cx.baseVal.value;
+            var cy = this.cy.baseVal.value;
+            // ...and its radius
+            var r = this.r.baseVal.value;  
+            d3.select(this)
+                .selectAll('polygon')
+                .data(d.events)
+                .enter()
+                .append('polygon')
+                .attr('points', function(e) {
+                    console.log(e);
+                    return polygonPtsString(cx, cy, r, d.time_float, d.rating, false);
+                })
+                .attr('stroke', 'black')
+                .attr('fill', function(d) {
+                    return colorList[d.type] != '' ? colorList[d.type] : 'white'
+                })
+        })
+        //.data(this.__data__.events)
+        //.enter()
+        //.append('polygon')
+        //.attr('points', '0,0 10,10 20,10')
+        //.attr('fill', 'red')
+
+    console.log(s.selectAll('circle').node());
+}*/
 
 function polygonPtsString(cx, cy, r, eventTime, eventRating, selected) {
     var spikeSize = selected ? (1.5 * SPIKE_SCALE) : SPIKE_SCALE;
@@ -149,4 +198,34 @@ function transitionCircles() {
         });
 
         setTimeout(drawSpikes, 1700);
+}
+
+function drawText() {
+    // Draw intro text
+    $('#event-time').delay(1000).fadeTo(200, 1, function() {
+        $('#event-detail').delay(1000 ).fadeTo(200, 1, function() {
+            setTimeout(drawCircles, 1000);
+        });
+    }); 
+}
+
+function filterType(type) {
+    s.selectAll('polygon')
+        .each(function(d, i) {
+            if (d.type != type) {
+                this.remove();
+            }
+        });
+}
+
+function reset() {
+    s.selectAll('polygon')
+        .each(function(d, i) {
+            this.remove();
+        });
+    drawSpikes();
+}
+
+function drawVis() {
+    drawCircles();
 }

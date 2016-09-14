@@ -1,0 +1,53 @@
+.gray {
+    background-color: #f4f4f4;
+}
+
+.green {
+    background-color: #33A0A0;
+}
+
+.v-center {
+    vertical-align: middle;
+}
+
+.mt {
+    margin-top: 50px;
+}
+
+.mb {
+    margin-bottom: 50px;
+}
+
+.mr {
+    margin-right: 50px;
+}
+
+.label-margin {
+    margin-right: 15px;
+}
+
+.pt {
+    padding-top: 50px;
+}
+
+.pl {
+    padding-left: 50px;
+}
+
+.pr {
+    padding-right: 100px;
+}
+
+.inline {
+    display: inline-block;
+}
+
+p {
+    color: #fff;
+    font-size: 1.1em;
+}
+
+h1 {
+    font-size: 4em;
+    font-weight: bold;      
+}
