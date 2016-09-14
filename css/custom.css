@@ -1,0 +1,32 @@
+.gray {
+    background-color: #f4f4f4;
+}
+
+.green {
+    background-color: #33A0A0;
+}
+
+.mt {
+    margin-top: 50px;
+}
+
+.mb {
+    margin-bottom: 50px;
+}
+
+.pl {
+    padding-left: 100px;
+}
+
+.pr {
+    padding-right: 100px;
+}
+
+h1, h3 {
+    color: #fff;
+}
+
+h1 {
+    font-size: 4em;
+    font-weight: bold;      
+}

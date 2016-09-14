@@ -2,25 +2,25 @@ const USER_WIDTH = $(window).width();
 const DEV_WIDTH = 1670;
 const INIT_RADIUS_SCALE = 5 / DEV_WIDTH * USER_WIDTH;
 const RADIUS_SCALE = 30 / DEV_WIDTH * USER_WIDTH;
-const SEPARATION_SCALE = 250 / DEV_WIDTH * USER_WIDTH;
-const OFFSET_SCALE = 25 / DEV_WIDTH * USER_WIDTH;
-const SPIKE_SCALE = 150 / DEV_WIDTH * USER_WIDTH;
-const SPIKE_ANGLE = 10;
+const SEPARATION_SCALE = 300 / DEV_WIDTH * USER_WIDTH;
+//const OFFSET_SCALE = 25 / DEV_WIDTH * USER_WIDTH;
+const SPIKE_SCALE = 200 / DEV_WIDTH * USER_WIDTH;
+const SPIKE_ANGLE = 13;
 const PI = Math.PI;
 
 let colorList = {
-    'danger':'#800000',
-    'crowd':'#FF0000', 
-    'conflict':'#808000', 
-    'phone':'#FFFF00', 
-    'unexpected':'#008000',
-    'future':'#00FF00',
-    'work':'#008080',
-    'stock':'#00FFFF',
-    'parking':'#000080',
-    'class':'#0000FF',
-    'assignment':'#800080',
-    'face':'#FF00FF'
+    'danger':'#FF6961',
+    'conflict':'#FFB347', 
+    'crowd':'#FDFD96', 
+    'phone':'#77DD77', 
+    'unexpected':'#AEC6CF',
+    'future':'#779ECB',
+    'work':'#966FD6',
+    'stock':'#',
+    'parking':'#',
+    'class':'#',
+    'assignment':'#',
+    'face':'#'
 }
 
 let s = d3.select('svg');
@@ -44,8 +44,8 @@ function drawCircles() {
         .data(data)
         .enter()
         .append('circle')
-        .style('fill', 'teal')
-        .attr('stroke', 'black') 
+        .style('fill', '#33A0A0')
+        .attr('stroke', '#000') 
         .attr('r', INIT_RADIUS_SCALE)
         .attr('cx', function(d) {
             return SEPARATION_SCALE * d.x;// + OFFSET_SCALE * (Math.random() - 0.5)
@@ -57,6 +57,7 @@ function drawCircles() {
         transitionCircles();
 }
 
+// Original -- works, but not very clean
 /*function drawSpikes() {
     var circleList = s.selectAll('circle')._groups[0];
     for (var circle = 0; circle < circleList.length; circle++) {
@@ -106,19 +107,54 @@ function drawSpikes() {
                 })
                 .attr('stroke', 'black')
                 .attr('fill', function(d) {
-                    return colorList[d.type] != '' ? colorList[d.type] : 'white'
+                    return colorList[d.type] != '#' ? colorList[d.type] : 'white'
                 })
                 .on('mouseover', function() {
-                   $('#test-field').text(this.__data__.detail);
-                   $('#test-field').css('visibility', 'visible');
+                    var c = s.selectAll('circle')._groups[0][this.__data__.day];
+                    $('#event-time').text(c.__data__.day_of_week + ', ' + this.__data__.time_str);
+                    $('#event-detail').text(this.__data__.detail);
+                    $('#event-time').fadeTo(10, 1);
+                    $('#event-detail').fadeTo(10, 1);
                 })
                 .on('mouseout', function() {
-                   $('#test-field').css('visibility', 'hidden');                    
+                   $('#event-time').fadeTo(10, 0);                    
+                   $('#event-detail').fadeTo(10, 0);                    
                 });
         });
 
-    $('#test-field').css('visibility', 'visible');
+    $('#event-detail').delay(500).fadeTo(200, 1);
 }
+
+/*function drawSpikes() {
+    s.selectAll('circle')
+        .each(function(d) {
+            // record its x and y position...
+            var cx = this.cx.baseVal.value;
+            var cy = this.cy.baseVal.value;
+            // ...and its radius
+            var r = this.r.baseVal.value;  
+            d3.select(this)
+                .selectAll('polygon')
+                .data(d.events)
+                .enter()
+                .append('polygon')
+                .attr('points', function(e) {
+                    console.log(e);
+                    return polygonPtsString(cx, cy, r, d.time_float, d.rating, false);
+                })
+                .attr('stroke', 'black')
+                .attr('fill', function(d) {
+                    return colorList[d.type] != '' ? colorList[d.type] : 'white'
+                })
+        })
+        //.data(this.__data__.events)
+        //.enter()
+        //.append('polygon')
+        //.attr('points', '0,0 10,10 20,10')
+        //.attr('fill', 'red')
+
+    console.log(s.selectAll('circle').node());
+}*/
 
 function polygonPtsString(cx, cy, r, eventTime, eventRating, selected) {
     var spikeSize = selected ? (1.5 * SPIKE_SCALE) : SPIKE_SCALE;
