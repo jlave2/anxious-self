@@ -8,7 +8,7 @@ const SPIKE_SCALE = 200 / DEV_WIDTH * USER_WIDTH;
 const SPIKE_ANGLE = 13;
 const PI = Math.PI;
 
-$('#sel-range').slider({});
+$('#sel-range').slider();
 
 let colorList = {
     'danger':'#000000',
@@ -22,17 +22,18 @@ let colorList = {
     'parking':'#FFDBE5',
     'class':'#BA0900',
     'assignment':'#0000A6',
-    'face':'#63FFAC'
+    'face-to-face':'#63FFAC'
 }
 
 let s = d3.select('svg');
 s.attr('viewBox', 
     '0 0 ' + (8 * SEPARATION_SCALE).toString() + ' ' + (4 * SEPARATION_SCALE).toString());
 
-var data = null;
+let data = null;
+let isIntroDone = false;
 
 // Load data
-d3.json('/data.json', function(err, d) {
+d3.json('data.json', function(err, d) {
     if(err) {
         console.log(err);
     } else {
@@ -47,14 +48,14 @@ function drawCircles() {
         .data(data)
         .enter()
         .append('circle')
-        .style('fill', '#33A0A0')
+        .style('fill', '#446e9b')
         .attr('stroke', '#000') 
         .attr('r', INIT_RADIUS_SCALE)
         .attr('cx', function(d) {
-            return SEPARATION_SCALE * d.x;// + OFFSET_SCALE * (Math.random() - 0.5)
+            return SEPARATION_SCALE * d.x;
         })
         .attr('cy', function(d) {
-            return -2* INIT_RADIUS_SCALE;// * d.y //+ OFFSET_SCALE * (Math.random() - 0.5)
+            return -2 * INIT_RADIUS_SCALE;
         });
 
         transitionCircles();
@@ -124,50 +125,21 @@ function drawSpikes() {
                 })
                 .on('mouseout', function() {
                     // Fade out text when leaving a spike
-                    $('#event-time').fadeTo(100, 0);                    
-                    $('#event-detail').fadeTo(100, 0);                    
+                    $('#event-time').fadeTo(100, 0);
+                    $('#event-detail').fadeTo(100, 0);
                 });
         });
     
     // Once spikes are drawn, fade out the intro...
     $('#event-time').fadeTo(200, 0);
     $('#event-detail').fadeTo(200, 0, function() {
-        $(this).text('Scroll over a spike to learn more.');
-        $(this).delay(1000).fadeTo(200, 1)
+        if (!isIntroDone) {
+            $(this).text('Scroll over a spike to learn more.');
+            $(this).delay(1000).fadeTo(200, 1);
+            isIntroDone = !isIntroDone;
+        }
     })
-       
 }
-
-/*function drawSpikes() {
-    s.selectAll('circle')
-        .each(function(d) {
-            // record its x and y position...
-            var cx = this.cx.baseVal.value;
-            var cy = this.cy.baseVal.value;
-            // ...and its radius
-            var r = this.r.baseVal.value;  
-            d3.select(this)
-                .selectAll('polygon')
-                .data(d.events)
-                .enter()
-                .append('polygon')
-                .attr('points', function(e) {
-                    console.log(e);
-                    return polygonPtsString(cx, cy, r, d.time_float, d.rating, false);
-                })
-                .attr('stroke', 'black')
-                .attr('fill', function(d) {
-                    return colorList[d.type] != '' ? colorList[d.type] : 'white'
-                })
-        })
-        //.data(this.__data__.events)
-        //.enter()
-        //.append('polygon')
-        //.attr('points', '0,0 10,10 20,10')
-        //.attr('fill', 'red')
-
-    console.log(s.selectAll('circle').node());
-}*/
 
 function polygonPtsString(cx, cy, r, eventTime, eventRating, selected) {
     var spikeSize = selected ? (1.5 * SPIKE_SCALE) : SPIKE_SCALE;
@@ -209,9 +181,27 @@ function drawText() {
     }); 
 }
 
-function filterType(type) {
+function filterType(type, range) {
+    // Remove all spikes
     s.selectAll('polygon')
         .each(function(d, i) {
+            this.remove();
+        });
+    // Then re-draw them
+    drawSpikes();
+    // Go through and delete spikes outside of range
+    s.selectAll('polygon')
+        .each(function(d, i) {
+            if (d.rating < parseInt(range[0]) || d.rating > parseInt(range[1])) {
+                this.remove();
+            }
+        });
+    // From those remaining, delete spikes of the wrong type
+    s.selectAll('polygon')
+        .each(function(d, i) {
+            if (type == 'all') {
+                return;
+            }
             if (d.type != type) {
                 this.remove();
             }
@@ -219,13 +209,12 @@ function filterType(type) {
 }
 
 function reset() {
+    $('#sel-type').val('all');
+    $('#sel-range').slider('destroy');
+    $('#sel-range').slider();
     s.selectAll('polygon')
         .each(function(d, i) {
             this.remove();
         });
     drawSpikes();
-}
-
-function drawVis() {
-    drawCircles();
 }
